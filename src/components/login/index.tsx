@@ -2,13 +2,36 @@ import { Link } from "react-router-dom"
 import { MainComponent } from "../MainComponent"
 import { SideMcLogo } from "../sidemclogo"
 import styled from "styled-components"
-// import { useForm } from "react-hook-form"
-// import { zodResolver } from "@hookform/resolvers/zod"
-// import z from 'zod'
+import { SubmitHandler, useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import z from 'zod'
+import { ErrorFormMessage } from "../ErrorFormMessage"
+
+const signInUserFormSchema = z.object({
+    email: z.string().nonempty('Campo obrigatório').email('Informe um endereço de e-mail válido'),
+    password: z.string().nonempty('Campo obrigatório').min(6, 'Verifique se a senha tem pelo menos 6 caracteres')
+})
+
+type signInUserFormData = z.infer<typeof signInUserFormSchema>;
 
 export const Login = () => {
 
-    // const { register, handleSubmit, errors } = useForm()
+    const { 
+        register, 
+        handleSubmit, 
+        // reset,
+        // setError,
+        formState: { errors, isSubmitting },
+     } = useForm({
+        mode: 'onBlur',
+        resolver: zodResolver(signInUserFormSchema)
+     })
+
+     const onSubmit: SubmitHandler<signInUserFormData> = (data) => {
+        console.log(data);
+        window.alert("Usuário logado com sucesso.");
+        return data;
+     }
 
     return (
         <MainComponent>
@@ -19,31 +42,45 @@ export const Login = () => {
                     <p className="subtitle">We are glad you're back. </p>
                     <span>Sign up</span>
                 </div>
-                <form className="form">
+                <form 
+                    className="form"
+                    onSubmit={handleSubmit(onSubmit)}
+                    >
                     <h2 className="">Sign up to your account</h2>
 
                     <label htmlFor="email">Email</label>
                     <input 
                     type="email" 
-                    name="email" 
                     id="email"
                     maxLength={50}
                     placeholder="Your Email"
+                    {...register("email")}
                     />
+                    {errors?.email && (
+                        <ErrorFormMessage>
+                            {errors?.email?.message}
+                        </ErrorFormMessage>
+                    )}
 
                     <label htmlFor="password">Password</label>
                     <input 
                     type="password"
-                    name="password"
                     id="password"
                     maxLength={20}
                     placeholder="Password"
+                    {...register("password")}
                     />
+                    {errors?.password && (
+                        <ErrorFormMessage>
+                            {errors?.password?.message}
+                        </ErrorFormMessage>
+                    )}
                     
                     <input 
                     type="submit" 
                     value="Submit"
                     className="submit"
+                    disabled={isSubmitting}
                     />
                     <p className="redirectLogin">Doesn't have an account? <Link to="/register">Create account</Link></p>
                     
