@@ -1,5 +1,4 @@
 import styled from "styled-components"
-// import { MainComponent } from "../MainComponent"
 
 export const Home = () => {
 
