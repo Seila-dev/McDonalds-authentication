@@ -8,8 +8,8 @@ import z from 'zod'
 import { ErrorFormMessage } from "../ErrorFormMessage"
 
 const signInUserFormSchema = z.object({
-    email: z.string().nonempty('Campo obrigatório').email('Informe um endereço de e-mail válido'),
-    password: z.string().nonempty('Campo obrigatório').min(6, 'Verifique se a senha tem pelo menos 6 caracteres')
+    email: z.string().nonempty('Required field').email('Please provide a valid email address'),
+    password: z.string().nonempty('Required field').min(6, 'Verifify if the password has at least 6 characters')
 })
 
 type signInUserFormData = z.infer<typeof signInUserFormSchema>;
@@ -29,7 +29,7 @@ export const Login = () => {
 
      const onSubmit: SubmitHandler<signInUserFormData> = (data) => {
         console.log(data);
-        window.alert("Usuário logado com sucesso.");
+        window.alert("User has been logged successfully.");
         return data;
      }
 
@@ -40,7 +40,7 @@ export const Login = () => {
                 <div className="info">
                     <h1 className="title">Welcome back to McDonald's</h1>
                     <p className="subtitle">We are glad you're back. </p>
-                    <span>Sign up</span>
+                    <span>Sign up and enjoy the experience.</span>
                 </div>
                 <form 
                     className="form"

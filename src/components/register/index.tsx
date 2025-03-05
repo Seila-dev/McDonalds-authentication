@@ -2,13 +2,36 @@ import { Link } from "react-router-dom"
 import { MainComponent } from "../MainComponent"
 import { SideMcLogo } from "../sidemclogo"
 import styled from "styled-components"
-// import { useForm } from "react-hook-form"
-// import { zodResolver } from "@hookform/resolvers/zod"
-// import z from 'zod'
+import { SubmitHandler, useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import z from 'zod'
+import { ErrorFormMessage } from "../ErrorFormMessage"
+
+const registerUserFormSchema = z.object({
+    username: z.string().nonempty('Required field').max(50, 'More than 50 characters is not allowed'),
+    email: z.string().nonempty('Required field').email('Invalid E-mail address'),
+    password: z.string().nonempty('Required field').min(6, 'Verifify if the password has at least 6 characters').max(20, 'More than 20 characters is not allowed'),
+})
+
+type registerUserFormData = z.infer<typeof registerUserFormSchema>
 
 export const Register = () => {
 
-    // const { register, handleSubmit, errors } = useForm()
+    const { 
+        register, 
+        handleSubmit, 
+        // setError,
+        // reset,
+        formState: { errors, isSubmitting }
+    } = useForm({
+        mode: 'onBlur',
+        resolver: zodResolver(registerUserFormSchema)
+    })
+
+    const onSubmit: SubmitHandler<registerUserFormData> = (data) => {
+        window.alert('User has been registered successfully')
+        return data;
+    }
 
     return (
         <MainComponent>
@@ -19,41 +42,57 @@ export const Register = () => {
                     <p className="subtitle">Register now</p>
                     <span>And enjoy the experience</span>
                 </div>
-                <form className="form">
-                    <h2 className="">Create your account</h2>
+                <form 
+                    className="form"
+                    onSubmit={handleSubmit(onSubmit)}
+                    >
+                    <h2>Create your account</h2>
                     <label htmlFor="name">Nome</label>
                     <input 
                     type="text" 
-                    name="name" 
                     id="name"
-                    maxLength={50}
                     placeholder="Your Name"
+                    {...register('username')}
                     />
+                    {errors?.username && (
+                        <ErrorFormMessage>
+                            {errors?.username?.message} 
+                        </ErrorFormMessage>
+                    )}
 
                     <label htmlFor="email">Email</label>
                     <input 
                     type="email" 
-                    name="email" 
                     id="email"
-                    maxLength={50}
                     placeholder="Your Email"
+                    {...register('email')}
                     />
+                    {errors?.email && (
+                        <ErrorFormMessage>
+                            {errors?.email?.message} 
+                        </ErrorFormMessage>
+                    )}
 
                     <label htmlFor="password">Password</label>
                     <input 
                     type="password"
-                    name="password"
                     id="password"
-                    maxLength={20}
                     placeholder="Create a password"
+                    {...register('password')}
                     />
+                    {errors?.password && (
+                        <ErrorFormMessage>
+                            {errors?.password?.message} 
+                        </ErrorFormMessage>
+                    )}
                     
                     <input 
                     type="submit" 
                     value="Enviar"
                     className="submit"
+                    disabled={isSubmitting}
                     />
-                    <p className="redirectLogin">Já tem uma conta? <Link to="/login">Faça login</Link></p>
+                    <p className="redirectLogin">Already has an account? <Link to="/login">Login</Link></p>
                     
                 </form>
             </Container>
