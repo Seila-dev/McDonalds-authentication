@@ -14,7 +14,7 @@ export const Home = () => {
             {isAuthenticated ? (
                 <></>
             ) : (
-                <p>If you just logged in and your informations aren't there, please refresh the page or <Link to="/register" className="links">Sign up</Link></p>
+                <p>If you just logged in and your informations aren't there, please refresh the page or <Link to="/login" className="links">Login</Link></p>
             )}
             { user &&
                 <p>Would you like to order something, {user.username}?</p>
