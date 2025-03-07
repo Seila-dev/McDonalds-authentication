@@ -74,7 +74,7 @@ export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
     
             if(!request.ok) {
                 const error = await request.json()
-                throw new Error(error)
+                throw new Error(error.message || "Invalid email or password")
             }
     
             const response = await request.json()
@@ -89,6 +89,7 @@ export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
     
         } catch (error: any) {
             console.error('esse djanhooo', error)
+            throw error;
         }
     }
 

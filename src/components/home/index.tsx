@@ -73,6 +73,12 @@ const Main = styled.main`
     .title{
         font-size: 40px;
     }
+
+    @media(max-width: 768px){
+        .title{
+            font-size: 25px;
+        }
+    }
 `
 
 const Content = styled.section`

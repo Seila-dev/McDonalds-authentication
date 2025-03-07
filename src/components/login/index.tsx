@@ -17,24 +17,35 @@ const signInUserFormSchema = z.object({
 type signInUserFormData = z.infer<typeof signInUserFormSchema>;
 
 export const Login = () => {
-
     const { 
         register, 
         handleSubmit, 
-        // reset,
-        // setError,
+        setError,
         formState: { errors, isSubmitting },
-     } = useForm({
+    } = useForm({
         mode: 'onBlur',
         resolver: zodResolver(signInUserFormSchema)
-     })
+    });
 
-     const { signIn } = useContext(AuthContext)
+    const { signIn } = useContext(AuthContext);
+    // const [loginError, setLoginError] = useState<string | null>(null);
 
-     const onSubmit: SubmitHandler<signInUserFormData> = async (data) => {
-        await signIn(data)
-        window.alert("User has been logged successfully.");
-     }
+    const onSubmit: SubmitHandler<signInUserFormData> = async (data) => {
+        try {
+            await signIn(data);
+        } catch (error: any) {
+            // setLoginError("Invalid email or password");
+
+            setError("email", {
+                type: "manual",
+                message: "Invalid email or password",
+            });
+            setError("password", {
+                type: "manual",
+                message: "Invalid email or password",
+            });
+        }
+    };
 
     return (
         <MainComponent>
@@ -44,54 +55,50 @@ export const Login = () => {
                     <h1 className="title">Welcome back to McDonald's</h1>
                     <p className="subtitle">We are glad you're back. </p>
                     <span>Sign up and enjoy the experience.</span>
+                    <p>OBS: This is a small side project, if the submit button doesn't work, try again or wait a few seconds for the API to become active.</p>
                 </div>
-                <form 
-                    className="form"
-                    onSubmit={handleSubmit(onSubmit)}
-                    >
+                <form className="form" onSubmit={handleSubmit(onSubmit)}>
                     <h2 className="title-2">Sign up to your account</h2>
 
                     <label htmlFor="email">Email</label>
                     <input 
-                    type="email" 
-                    id="email"
-                    maxLength={50}
-                    placeholder="Your Email"
-                    {...register("email")}
+                        type="email" 
+                        id="email"
+                        maxLength={50}
+                        placeholder="Your Email"
+                        {...register("email")}
                     />
                     {errors?.email && (
-                        <ErrorFormMessage>
-                            {errors?.email?.message}
-                        </ErrorFormMessage>
+                        <ErrorFormMessage>{errors?.email?.message}</ErrorFormMessage>
                     )}
 
                     <label htmlFor="password">Password</label>
                     <input 
-                    type="password"
-                    id="password"
-                    maxLength={20}
-                    placeholder="Password"
-                    {...register("password")}
+                        type="password"
+                        id="password"
+                        maxLength={20}
+                        placeholder="Password"
+                        {...register("password")}
                     />
                     {errors?.password && (
-                        <ErrorFormMessage>
-                            {errors?.password?.message}
-                        </ErrorFormMessage>
+                        <ErrorFormMessage>{errors?.password?.message}</ErrorFormMessage>
                     )}
-                    
+
                     <input 
-                    type="submit" 
-                    value="Submit"
-                    className="submit"
-                    disabled={isSubmitting}
+                        type="submit" 
+                        value="Submit"
+                        className="submit"
+                        disabled={isSubmitting}
                     />
-                    <p className="redirectLogin">Doesn't have an account? <Link to="/register">Create account</Link></p>
-                    
+                    <p className="redirectLogin">
+                        Don't have an account? <Link to="/register">Create account</Link>
+                    </p>
                 </form>
             </Container>
         </MainComponent>
     )
 }
+
 
 const Container = styled.section`
     padding: 50px;
