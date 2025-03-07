@@ -49,7 +49,7 @@ export const Login = () => {
                     className="form"
                     onSubmit={handleSubmit(onSubmit)}
                     >
-                    <h2 className="">Sign up to your account</h2>
+                    <h2 className="title-2">Sign up to your account</h2>
 
                     <label htmlFor="email">Email</label>
                     <input 
@@ -140,4 +140,15 @@ const Container = styled.section`
         max-width: 600px;
     }
 
+    @media(max-width: 768px){
+        .form{
+            width: 100%;
+        }
+        .title, .title-2{
+            font-size: 20px;
+        }
+        .subtitle{
+            font-size: 15px;
+        }
+    }
 `

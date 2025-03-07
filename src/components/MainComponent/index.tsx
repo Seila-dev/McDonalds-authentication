@@ -20,4 +20,8 @@ const MainElement = styled.main`
     display: grid;
     grid-template-columns: 1fr 1fr;
     background: white;
+
+    @media(max-width: 768px){
+        grid-template-columns: 1fr;
+    }
 `

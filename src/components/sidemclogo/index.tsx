@@ -21,4 +21,11 @@ const Aside = styled.aside`
         width: 200px;
     }
 
+    @media(max-width: 768px){
+        .McLogo{
+            width: 100px;
+            margin: 20px;
+        }
+    }
+
 `

@@ -32,6 +32,7 @@ const Main = styled.main`
     background: var(--red);
     color: var(--yellow);
     transition: 0.15s ease-in;
+    text-align: center;
 
     .links{
         color: var(--almost-black);
