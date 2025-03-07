@@ -55,7 +55,7 @@ export const Login = () => {
                     <h1 className="title">Welcome back to McDonald's</h1>
                     <p className="subtitle">We are glad you're back. </p>
                     <span>Sign up and enjoy the experience.</span>
-                    <p>OBS: This is a small side project, if the submit button doesn't work, try again or wait a few seconds for the API to become active.</p>
+                    <p>Note: This is a small side project. If the submit button doesn't work, try again or wait a few seconds for the API to become active. (Estimated time: 30 Seconds)</p>
                 </div>
                 <form className="form" onSubmit={handleSubmit(onSubmit)}>
                     <h2 className="title-2">Sign up to your account</h2>

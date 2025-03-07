@@ -88,7 +88,7 @@ export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
             navigate("/")
     
         } catch (error: any) {
-            console.error('esse djanhooo', error)
+            console.error('Something went wrong on sign up', error)
             throw error;
         }
     }

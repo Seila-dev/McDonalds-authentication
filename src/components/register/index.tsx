@@ -45,7 +45,7 @@ export const Register = () => {
                     <h1 className="title">Welcome to McDonald's</h1>
                     <p className="subtitle">Register now</p>
                     <span>And enjoy the experience</span>
-                    <p>OBS: This is a small side project, if the submit button doesn't works try clicking again or wait some seconds to the API become active and try again.</p>
+                    <p>Note: This is a small side project. If the submit button doesn't works try clicking again or wait some seconds to the API become active and try again. (Estimated time: 30 seconds)</p>
                 </div>
                 <form 
                     className="form"
