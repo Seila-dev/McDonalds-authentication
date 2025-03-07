@@ -147,7 +147,7 @@ const Container = styled.section`
     .redirectLogin{
         margin-top: 30px;
         padding-top: 10px;
-        border-top: 1px solid black;
+        border-top: 1px solid #ccc;
         max-width: 600px;
     }
 
