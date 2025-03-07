@@ -6,6 +6,8 @@ import { SubmitHandler, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import z from 'zod'
 import { ErrorFormMessage } from "../ErrorFormMessage"
+import { useContext } from "react"
+import { AuthContext } from "../../contexts/AuthContext"
 
 const signInUserFormSchema = z.object({
     email: z.string().nonempty('Required field').email('Please provide a valid email address'),
@@ -27,10 +29,11 @@ export const Login = () => {
         resolver: zodResolver(signInUserFormSchema)
      })
 
-     const onSubmit: SubmitHandler<signInUserFormData> = (data) => {
-        console.log(data);
+     const { signIn } = useContext(AuthContext)
+
+     const onSubmit: SubmitHandler<signInUserFormData> = async (data) => {
+        await signIn(data)
         window.alert("User has been logged successfully.");
-        return data;
      }
 
     return (

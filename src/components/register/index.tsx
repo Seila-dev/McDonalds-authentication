@@ -6,6 +6,8 @@ import { SubmitHandler, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import z from 'zod'
 import { ErrorFormMessage } from "../ErrorFormMessage"
+import { useContext } from "react"
+import { AuthContext } from "../../contexts/AuthContext"
 
 const registerUserFormSchema = z.object({
     username: z.string().nonempty('Required field').max(50, 'More than 50 characters is not allowed'),
@@ -28,9 +30,11 @@ export const Register = () => {
         resolver: zodResolver(registerUserFormSchema)
     })
 
-    const onSubmit: SubmitHandler<registerUserFormData> = (data) => {
+    const { registerAccount } = useContext(AuthContext)
+
+    const onSubmit: SubmitHandler<registerUserFormData> = async (data) => {
         window.alert('User has been registered successfully')
-        return data;
+        await registerAccount(data)
     }
 
     return (

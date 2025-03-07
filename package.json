@@ -11,9 +11,12 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^4.1.2",
+    "axios": "^1.8.1",
+    "nookies": "^2.5.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
+    "react-loading-skeleton": "^3.5.0",
     "react-router-dom": "^7.2.0",
     "styled-components": "^6.1.15",
     "zod": "^3.24.2"
