@@ -12,7 +12,7 @@ export const Home = () => {
 
         <Main>
             <section className="container">
-                
+
                 <div className="mainHeader">
                     <Header />
                     <h1 className="title">Welcome to McDonalds' Hub, {user ? user.username : 'Sir'}</h1>
@@ -26,14 +26,19 @@ export const Home = () => {
                     }
                 </div>
 
-                <Content>
-                    <section className="foodSection">
-                        <h3>Food Section</h3>
-                        <div className="flex-container">
-                            <p>Products List here</p>
-                        </div>
-                    </section>
-                </Content>
+                {isAuthenticated ? (
+                    <Content>
+                        <section className="foodSection">
+                            <h3>Food Section</h3>
+                            <div className="flex-container">
+                                <p>Products List here</p>
+                            </div>
+                        </section>
+                    </Content>
+                ) : (
+                    <></>
+                )}
+
             </section>
 
         </Main>
